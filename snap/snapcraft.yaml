@@ -22,6 +22,7 @@ apps:
 parts:
   kiwix-tools:
     plugin: dump
+    build-packages: [curl]
     override-pull: |
             case "$SNAPCRAFT_ARCH_TRIPLET" in
                 i386-linux-gnu)
