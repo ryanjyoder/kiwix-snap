@@ -1,0 +1,2 @@
+# kiwix-snap
+Kiwix Snap
