@@ -4,6 +4,7 @@ version: "v0.6.1"
 summary: Sharing internet content with people without internet access. Go offline!
 description: |
         In many places internet can be slow, unreliable or even censored. Kiwix is an offline solution that allows you to access educational content like Wikipedia, the Wiktionary, TED talks and many others on any computer or smartphone - without the need for a live internet connection.
+
 grade: stable
 confinement: strict
 
@@ -21,25 +22,28 @@ apps:
 parts:
   kiwix-tools:
     plugin: dump
-    src: kiwix-tools.tar.gz
     override-pull: |
             case "$SNAPCRAFT_ARCH_TRIPLET" in
                 i386-linux-gnu)
                         echo i386
-                        curl -o kiwix-tools.tar.gz https://download.kiwix.org/release/kiwix-tools/kiwix-tools_linux-i586-0.6.1-1.tar.gz
+                        curl -o kiwix-tools.tar.gz https://mirrors.dotsrc.org/kiwix/release/kiwix-tools/kiwix-tools_linux-i586-0.6.1-1.tar.gz
                         ;;
                 x86_64-linux-gnu)
                         echo x86_64
-                        curl -o kiwix-tools.tar.gz https://download.kiwix.org/release/kiwix-tools/kiwix-tools_linux-x86_64-0.6.1-1.tar.gz
+                        curl -o kiwix-tools.tar.gz https://mirrors.dotsrc.org/kiwix/release/kiwix-tools/kiwix-tools_linux-x86_64-0.6.1-1.tar.gz
                         ;;
                 arm-linux-gnueabihf)
                         echo arm
-                        curl -o kiwix-tools.tar.gz https://download.kiwix.org/release/kiwix-tools/kiwix-tools_linux-armhf-0.6.1-1.tar.gz
+                        curl -o kiwix-tools.tar.gz https://mirrors.dotsrc.org/kiwix/release/kiwix-tools/kiwix-tools_linux-armhf-0.6.1-1.tar.gz
                         ;;
                 *)
                         echo "Arch type unknown: $SNAPCRAFT_ARCH_TRIPLET"
                         exit 1
             esac
+            ls -l
+            tar -xvzf kiwix-tools.tar.gz
+            mv kiwix-tools*/* .
+            rmdir kiwix-tools*/
 
 
 
