@@ -1,9 +1,9 @@
 
-name: traefik-ryanjyoder
-version: "v1.7.0-rc5"
-summary: The Cloud Native Edge Router
+name: kiwix-ryanjyoder
+version: "v0.6.1"
+summary: Sharing internet content with people without internet access. Go offline!
 description: |
-        Træfik is a modern HTTP reverse proxy and load balancer that makes deploying microservices easy. Træfik integrates with your existing infrastructure components (Docker, Swarm mode, Kubernetes, Marathon, Consul, Etcd, Rancher, Amazon ECS, ...) and configures itself automatically and dynamically. Pointing Træfik at your orchestrator should be the only configuration step you need.
+        In many places internet can be slow, unreliable or even censored. Kiwix is an offline solution that allows you to access educational content like Wikipedia, the Wiktionary, TED talks and many others on any computer or smartphone - without the need for a live internet connection.
 grade: stable
 confinement: strict
 
