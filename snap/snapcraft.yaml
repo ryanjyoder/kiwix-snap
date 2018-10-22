@@ -3,7 +3,7 @@ name: kiwix-ryanjyoder
 version: "v0.6.1"
 summary: Sharing internet content with people without internet access. Go offline!
 description: |
-        In many places internet can be slow, unreliable or even censored. Kiwix is an offline solution that allows you to access educational content like Wikipedia, the Wiktionary, TED talks and many others on any computer or smartphone - without the need for a live internet connection.
+        In many places internet can be slow, unreliable or even censored. Kiwix is an offline solution that allows you to access educational content like Wikipedia, the Wiktionary, TED talks and many others on any computer or smartphone - without the need for a live internet connection. 
 
 grade: stable
 confinement: strict
