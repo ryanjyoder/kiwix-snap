@@ -2,4 +2,4 @@
 
 library=$(snapctl get library)
 
-kiwix-serve $library
+$SNAP/kiwix-serve $library
