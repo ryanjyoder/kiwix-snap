@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+library=$(snapctl get library)
+
+if [ ! -r "$library" ]; then
+    echo "'$library' is not readable"
+    exit -1
+fi
+
+echo configs set
+exit 0

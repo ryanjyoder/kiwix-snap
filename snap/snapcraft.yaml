@@ -9,9 +9,13 @@ grade: stable
 confinement: strict
 
 apps:
+  kiwix-server:
+    command: kiwix-wrapper
+    daemon: simple
+    plugs: [network-bind, removable-media]
   kiwix-serve:
     command: kiwix-serve
-    plugs: [network-bind,removable-media]
+    plugs: [network-bind,removable-media,home]
   kiwix-manage:
     command: kiwix-manage
   kiwix-read:
@@ -20,6 +24,9 @@ apps:
     command: kiwix-search
 
 parts:
+  wrapper:
+    plugin: dump
+    source: ./bin/
   kiwix-tools:
     plugin: dump
     build-packages: [curl]
