@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+library=$(snapctl get library)
+
+kiwix-serve $library
