@@ -2,6 +2,10 @@
 
 library=$(snapctl get library)
 
+if [ -z "$library" ]; then
+    exit 0
+fi
+
 if [ ! -r "$library" ]; then
     echo "'$library' is not readable"
     exit -1
