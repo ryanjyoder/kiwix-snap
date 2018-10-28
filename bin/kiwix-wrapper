@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
 library=$(snapctl get library)
+port=$(snapctl get port)
+if [ -z "$port" ]; then
+    port=80
+fi
 
-$SNAP/kiwix-serve $library
+$SNAP/kiwix-serve --port=$port $library

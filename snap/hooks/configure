@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 library=$(snapctl get library)
+port=$(snapctl get port)
 
 if [ -z "$library" ]; then
     exit 0
@@ -8,8 +9,14 @@ fi
 
 if [ ! -r "$library" ]; then
     echo "'$library' is not readable"
-    exit -1
+    exit 1
 fi
+
+portint=$( printf "%d" "$port" )
+if [ "$port" != "$portint" ]; then
+    echo $port is not an integer
+    exit 1
+fi 
 
 echo configs set
 exit 0
