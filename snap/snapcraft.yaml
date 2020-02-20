@@ -1,6 +1,6 @@
 
-name: kiwix-ryanjyoder
-version: "v0.6.1"
+name: kiwix-tools
+version: "v3.0.2"
 summary: Sharing internet content with people without internet access. Go offline!
 description: |
         In many places internet can be slow, unreliable or even censored. Kiwix is an offline solution that allows you to access educational content like Wikipedia, the Wiktionary, TED talks and many others on any computer or smartphone - without the need for a live internet connection. 
@@ -34,15 +34,15 @@ parts:
             case "$SNAPCRAFT_ARCH_TRIPLET" in
                 i386-linux-gnu)
                         echo i386
-                        curl -o kiwix-tools.tar.gz https://mirrors.dotsrc.org/kiwix/release/kiwix-tools/kiwix-tools_linux-i586-0.6.1-1.tar.gz
+                        curl -o kiwix-tools.tar.gz https://mirrors.dotsrc.org/kiwix/release/kiwix-tools/kiwix-tools_linux-i586-3.0.2.tar.gz
                         ;;
                 x86_64-linux-gnu)
                         echo x86_64
-                        curl -o kiwix-tools.tar.gz https://mirrors.dotsrc.org/kiwix/release/kiwix-tools/kiwix-tools_linux-x86_64-0.6.1-1.tar.gz
+                        curl -o kiwix-tools.tar.gz https://mirrors.dotsrc.org/kiwix/release/kiwix-tools/kiwix-tools_linux-x86_64-3.0.2.tar.gz
                         ;;
                 arm-linux-gnueabihf)
                         echo arm
-                        curl -o kiwix-tools.tar.gz https://mirrors.dotsrc.org/kiwix/release/kiwix-tools/kiwix-tools_linux-armhf-0.6.1-1.tar.gz
+                        curl -o kiwix-tools.tar.gz https://mirrors.dotsrc.org/kiwix/release/kiwix-tools/kiwix-tools_linux-armhf-3.0.2.tar.gz
                         ;;
                 *)
                         echo "Arch type unknown: $SNAPCRAFT_ARCH_TRIPLET"
