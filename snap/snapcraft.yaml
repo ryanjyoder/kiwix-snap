@@ -7,53 +7,81 @@ description: |
 
 grade: stable
 confinement: strict
+base: core18
 
 apps:
   kiwix-server:
     command: kiwix-wrapper
     daemon: simple
     plugs: [network-bind, removable-media]
+    environment:
+      LD_LIBRARY_PATH: $LD_LIBRARY_PATH:$SNAP/usr/lib
+
   kiwix-serve:
     command: kiwix-serve
     plugs: [network-bind,removable-media,home]
+    environment:
+      LD_LIBRARY_PATH: $LD_LIBRARY_PATH:$SNAP/usr/lib
+
   kiwix-manage:
     command: kiwix-manage
+    environment:
+      LD_LIBRARY_PATH: $LD_LIBRARY_PATH:$SNAP/usr/lib
+
   kiwix-read:
     command: kiwix-read
+    environment:
+      LD_LIBRARY_PATH: $LD_LIBRARY_PATH:$SNAP/usr/lib
+
   kiwix-search:
     command: kiwix-search
+    environment:
+      LD_LIBRARY_PATH: $LD_LIBRARY_PATH:$SNAP/usr/lib
 
 parts:
   wrapper:
     plugin: dump
     source: ./bin/
+
+
+  libzim:
+    plugin: nil
+    source: https://github.com/openzim/libzim.git
+    build-packages: [libicu-dev, libcurl4-gnutls-dev, libmicrohttpd-dev, libpugixml-dev, aria2, ninja-build, pkg-config, zlib1g-dev, lzma-dev, libxapian-dev, googletest, python3, python3-pip, python3-setuptools, python3-wheel, liblzma-dev, cython3]
+    stage-packages: [libxapian30]
+    override-build: |
+       pip3 install meson
+       meson . build
+       ninja -C build install
+
+       mkdir -p $SNAPCRAFT_PART_INSTALL/usr/lib/
+       cp build/src/libzim.so* $SNAPCRAFT_PART_INSTALL/usr/lib/
+
+  kiwix-lib:
+    after: [libzim]
+    source: https://github.com/kiwix/kiwix-lib.git
+    plugin: nil
+    stage-packages: [libasn1-8-heimdal, libcurl3-gnutls, libgssapi3-heimdal, libhcrypto4-heimdal, libheimbase1-heimdal, libheimntlm0-heimdal, libhx509-5-heimdal, libicu60, libkrb5-26-heimdal, libldap-2.4-2, libmicrohttpd12, libnghttp2-14, libpsl5, libpugixml1v5, libroken18-heimdal, librtmp1, libsasl2-2, libwind0-heimdal]
+
+    override-build: |
+      wget https://raw.githubusercontent.com/kainjow/Mustache/master/mustache.hpp
+      CPPFLAGS=-I`pwd` meson . build
+      ninja -C build install
+      mkdir -p $SNAPCRAFT_PART_INSTALL/usr/lib/
+      cp build/src/libkiwix.so* $SNAPCRAFT_PART_INSTALL/usr/lib/
+
+
   kiwix-tools:
-    plugin: dump
-    build-packages: [curl]
-    override-pull: |
-            case "$SNAPCRAFT_ARCH_TRIPLET" in
-                i386-linux-gnu)
-                        echo i386
-                        curl -o kiwix-tools.tar.gz https://mirrors.dotsrc.org/kiwix/release/kiwix-tools/kiwix-tools_linux-i586-3.0.2.tar.gz
-                        ;;
-                x86_64-linux-gnu)
-                        echo x86_64
-                        curl -o kiwix-tools.tar.gz https://mirrors.dotsrc.org/kiwix/release/kiwix-tools/kiwix-tools_linux-x86_64-3.0.2.tar.gz
-                        ;;
-                arm-linux-gnueabihf)
-                        echo arm
-                        curl -o kiwix-tools.tar.gz https://mirrors.dotsrc.org/kiwix/release/kiwix-tools/kiwix-tools_linux-armhf-3.0.2.tar.gz
-                        ;;
-                *)
-                        echo "Arch type unknown: $SNAPCRAFT_ARCH_TRIPLET"
-                        exit 1
-            esac
-            ls -l
-            tar -xvzf kiwix-tools.tar.gz
-            mv kiwix-tools*/* .
-            rmdir kiwix-tools*/
-
-
-
-
+    after: [kiwix-lib]
+    plugin: nil
+    source: https://github.com/kiwix/kiwix-tools.git
+    override-build: |
+       meson . build
+       ninja -C build install
+       
+       mkdir -p $SNAPCRAFT_PART_INSTALL/bin/
+       cp build/src/manager/kiwix-manage $SNAPCRAFT_PART_INSTALL/bin/
+       cp build/src/reader/kiwix-read $SNAPCRAFT_PART_INSTALL/bin/
+       cp build/src/searcher/kiwix-search $SNAPCRAFT_PART_INSTALL/bin/
+       cp build/src/server/kiwix-serve $SNAPCRAFT_PART_INSTALL/bin/
 
