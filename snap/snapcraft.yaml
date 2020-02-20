@@ -61,6 +61,7 @@ parts:
     after: [libzim]
     source: https://github.com/kiwix/kiwix-lib.git
     plugin: nil
+    build-packages: [wget]
     stage-packages: [libasn1-8-heimdal, libcurl3-gnutls, libgssapi3-heimdal, libhcrypto4-heimdal, libheimbase1-heimdal, libheimntlm0-heimdal, libhx509-5-heimdal, libicu60, libkrb5-26-heimdal, libldap-2.4-2, libmicrohttpd12, libnghttp2-14, libpsl5, libpugixml1v5, libroken18-heimdal, librtmp1, libsasl2-2, libwind0-heimdal]
 
     override-build: |
