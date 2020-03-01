@@ -1,2 +1,3 @@
 This log will trigger builds automatically based on the lasted version of kiwix-tools repo
 44613aae5d2116107b4002684e694a3ef81237e2	Mon Feb 24 22:24:02 UTC 2020	Print information about /data if error
+d6914eb34f63da5d03c5136c706e6f740d3a7c44	Sun Mar 1 15:24:59 UTC 2020	Bump-up version to 3.0.3
